@@ -16,7 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d build",
     "add": "git add . && git commit && git push origin $(git rev-parse --abbrev-ref HEAD)",
     "eject": "react-scripts eject"
   },
