@@ -1,8 +1,16 @@
 import './App.css';
-import pixelit from './pixel.js';
-import background from './assets/background2.jpg';
+import background from './assets/background3.jpg';
+import pixilator from './helpers/pixilator.js';
 
 function App() {
+  const CONFIG = {
+    to: document.getElementById('pixel_background_img'),
+    from: document.getElementById('background_img'),
+    scale: 50,
+    maxHeight: 200,
+    maxWidth: 200,
+  };
+
   return (
     <>
       <img
@@ -11,6 +19,7 @@ function App() {
         alt='background showing pokemon'
       />
       <canvas id='pixel_background_img'></canvas>
+      {pixilator(CONFIG)}
     </>
   );
 }
