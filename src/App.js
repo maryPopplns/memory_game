@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const [cards, setCards] = useState([]);
   // todo state for cards
 
@@ -12,9 +12,10 @@ function App() {
   // todo useEffect for pulling all the card info
   useEffect(() => {
     const RANDOM_NUMBERS = [];
-    for (let i = 0; i < 20; i++) {
-      const RANDOM_NUMBER = Math.floor(Math.random() * 151 + 1);
-      RANDOM_NUMBERS.push(RANDOM_NUMBER);
+    while (RANDOM_NUMBERS.length < 20) {
+      const RANDOM_NUMBER = Math.floor(Math.random() * 151) + 1;
+      if (RANDOM_NUMBERS.indexOf(RANDOM_NUMBER) === -1)
+        RANDOM_NUMBERS.push(RANDOM_NUMBER);
     }
 
     RANDOM_NUMBERS.forEach((number) => {
@@ -37,10 +38,20 @@ function App() {
     });
   }, []);
 
+  const SORTED = cards.sort((a, b) => {
+    if (a.NAME < b.NAME) {
+      return -1;
+    }
+    if (a.NAME > b.NAME) {
+      return 1;
+    }
+    return 0;
+  });
+
   return (
     <>
       <div></div>
-      {console.log(cards)}
+      {console.log(SORTED)}
     </>
   );
 }
