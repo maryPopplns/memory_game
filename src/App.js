@@ -38,20 +38,9 @@ function App() {
     });
   }, []);
 
-  const SORTED = cards.sort((a, b) => {
-    if (a.NAME < b.NAME) {
-      return -1;
-    }
-    if (a.NAME > b.NAME) {
-      return 1;
-    }
-    return 0;
-  });
-
   return (
     <>
       <div></div>
-      {console.log(SORTED)}
     </>
   );
 }
