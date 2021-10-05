@@ -43,11 +43,11 @@ function App() {
     if (cards.length === 20) {
       setTimeout(() => {
         setIsLoading(false);
-      }, 1000);
+      }, 500);
     }
   }, [cards]);
 
-  return <main>{isLoading ? <Loading /> : <div>hi</div>}</main>;
+  return <main>{isLoading ? <Loading /> : cards}</main>;
 }
 
 export default App;
