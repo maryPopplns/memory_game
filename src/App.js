@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import Card from './components/card/Card.js';
 
 function App() {
   // const [isLoading, setIsLoading] = useState(true);
@@ -28,8 +29,9 @@ function App() {
           const JSON = await RESPONSE.json();
           const NAME = JSON.species.name;
           const PICTURE = JSON.sprites.front_shiny;
+          const DATA = { NAME, PICTURE };
           setCards((prevState) => {
-            return [...prevState, { NAME, PICTURE }];
+            return [...prevState, <Card data={DATA} />];
           });
         } catch (error) {
           console.log(error);
@@ -41,6 +43,7 @@ function App() {
   return (
     <>
       <div></div>
+      {cards}
     </>
   );
 }
