@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Card from './components/card/Card.js';
+import Loading from './components/loading/Loading.js';
 
 function App() {
-  // const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [cards, setCards] = useState([]);
 
   // todo state for high score
@@ -11,7 +12,7 @@ function App() {
 
   useEffect(() => {
     const RANDOM_NUMBERS = [];
-    while (RANDOM_NUMBERS.length < 10) {
+    while (RANDOM_NUMBERS.length < 20) {
       const RANDOM_NUMBER = Math.floor(Math.random() * 151) + 1;
       if (RANDOM_NUMBERS.indexOf(RANDOM_NUMBER) === -1)
         RANDOM_NUMBERS.push(RANDOM_NUMBER);
@@ -31,18 +32,22 @@ function App() {
             return [...prevState, <Card data={DATA} />];
           });
         } catch (error) {
+          setIsLoading(false);
           console.log(error);
         }
       })();
     });
   }, []);
 
-  return (
-    <>
-      <div></div>
-      {cards}
-    </>
-  );
+  useEffect(() => {
+    if (cards.length === 20) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
+  }, [cards]);
+
+  return <main>{isLoading ? <Loading /> : <div>hi</div>}</main>;
 }
 
 export default App;
