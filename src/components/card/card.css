@@ -1,0 +1,14 @@
+.pokemon_card {
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  height: 12em;
+  width: 10em;
+}
+
+.pokemon_img {
+  height: 10em;
+  width: 10em;
+}
