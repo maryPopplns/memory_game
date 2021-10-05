@@ -12,8 +12,7 @@ function App() {
   useEffect(() => {
     const RANDOM_NUMBERS = [];
     while (RANDOM_NUMBERS.length < 10) {
-      // const RANDOM_NUMBER = Math.floor(Math.random() * 151) + 1;
-      const RANDOM_NUMBER = Math.floor(Math.random() * 700) + 1;
+      const RANDOM_NUMBER = Math.floor(Math.random() * 151) + 1;
       if (RANDOM_NUMBERS.indexOf(RANDOM_NUMBER) === -1)
         RANDOM_NUMBERS.push(RANDOM_NUMBER);
     }
