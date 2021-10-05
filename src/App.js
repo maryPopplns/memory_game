@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Card from './components/card/Card.js';
 import Loading from './components/loading/Loading.js';
+import Game from './components/game/Game.js';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +48,7 @@ function App() {
     }
   }, [cards]);
 
-  return <main>{isLoading ? <Loading /> : cards}</main>;
+  return <main>{isLoading ? <Loading /> : <Game data={cards} />}</main>;
 }
 
 export default App;
