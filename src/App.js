@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import Card from './components/card/Card.js';
 import Loading from './components/loading/Loading.js';
 import Game from './components/game/Game.js';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [cards, setCards] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const RANDOM_NUMBERS = [];
@@ -16,7 +15,7 @@ function App() {
         RANDOM_NUMBERS.push(RANDOM_NUMBER);
     }
 
-    RANDOM_NUMBERS.forEach((number) => {
+    RANDOM_NUMBERS.forEach((number, index) => {
       (async function apiData() {
         try {
           const RESPONSE = await fetch(
@@ -26,8 +25,8 @@ function App() {
           const NAME = JSON.species.name;
           const PICTURE = JSON.sprites.front_shiny;
           const DATA = { NAME, PICTURE };
-          setCards((prevState) => {
-            return [...prevState, <Card data={DATA} />];
+          setData((prevState) => {
+            return [...prevState, DATA];
           });
         } catch (error) {
           setIsLoading(false);
@@ -38,14 +37,14 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (cards.length === 50) {
+    if (data.length === 50) {
       setTimeout(() => {
         setIsLoading(false);
       }, 1000);
     }
-  }, [cards]);
+  }, [data]);
 
-  return <main>{isLoading ? <Loading /> : <Game data={cards} />}</main>;
+  return <main>{isLoading ? <Loading /> : <Game data={data} />}</main>;
 }
 
 export default App;

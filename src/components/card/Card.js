@@ -1,7 +1,6 @@
 import './card.css';
 
 export default function Card(props) {
-  console.log(props.data);
   return (
     <div className='pokemon_card'>
       <img

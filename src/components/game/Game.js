@@ -1,12 +1,23 @@
 import { useEffect, useState } from 'react';
+import Card from '../card/Card.js';
 
 export default function Game(props) {
+  const [allCards, setAllCards] = useState([]);
   const [currentCards, setCurrentCards] = useState([]);
   const [currentScore, setCurrentScore] = useState(0);
   const [level, setLevel] = useState(1);
+  const [selected, setSelected] = useState([]);
   const [highScore, setHighScore] = useState(
     window.localStorage.getItem('highScore') || 0
   );
+
+  useEffect(() => {
+    props.data.forEach((data, index) => {
+      console.log(data);
+      const CARD = <Card key={index} index={index} data={data} />;
+      setAllCards((prevState) => [...prevState, CARD]);
+    });
+  }, [props.data]);
 
   useEffect(() => {
     const NUMBER_GENERATOR = (amount) => {
@@ -21,7 +32,7 @@ export default function Game(props) {
 
     const STATE_SETTER = (array) => {
       const FINAL_STATE = [];
-      array.forEach((number) => FINAL_STATE.push(props.data[number]));
+      array.forEach((number) => FINAL_STATE.push(allCards[number]));
       setCurrentCards(FINAL_STATE);
     };
 
@@ -62,8 +73,7 @@ export default function Game(props) {
       STATE_SETTER(NUMBERS);
     }
     if (level === 10) {
-      const NUMBERS = NUMBER_GENERATOR(50);
-      STATE_SETTER(NUMBERS);
+      setCurrentCards(props.data);
     }
     // todo render cards depending on level youre on
   }, [level, props.data]);
@@ -76,7 +86,8 @@ export default function Game(props) {
           setLevel((prevState) => prevState + 1);
         }}
       ></button>
-      {console.log(currentCards)}
+      {currentCards}
+      {/* {console.log(level)} */}
     </>
   );
 }
