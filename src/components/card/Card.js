@@ -2,7 +2,7 @@ import './card.css';
 
 export default function Card(props) {
   return (
-    <div className='pokemon_card'>
+    <div onClick={props.onClick} index={props.index} className='pokemon_card'>
       <img
         className='pokemon_card_img'
         src={props.data.PICTURE}
