@@ -8,12 +8,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [cards, setCards] = useState([]);
 
-  // todo state for high score
-  // todo state for current score
-
   useEffect(() => {
     const RANDOM_NUMBERS = [];
-    while (RANDOM_NUMBERS.length < 20) {
+    while (RANDOM_NUMBERS.length < 50) {
       const RANDOM_NUMBER = Math.floor(Math.random() * 151) + 1;
       if (RANDOM_NUMBERS.indexOf(RANDOM_NUMBER) === -1)
         RANDOM_NUMBERS.push(RANDOM_NUMBER);
@@ -41,10 +38,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (cards.length === 20) {
+    if (cards.length === 50) {
       setTimeout(() => {
         setIsLoading(false);
-      }, 500);
+      }, 1000);
     }
   }, [cards]);
 
