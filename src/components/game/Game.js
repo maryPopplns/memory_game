@@ -3,10 +3,10 @@ import Card from '../card/Card.js';
 import './game.css';
 
 export default function Game(props) {
-  const [allCards, setAllCards] = useState([]); // set when component mounts
-  const [currentCards, setCurrentCards] = useState([]); // will be appended to the DOM
-  const [allCurrentIndexes, setAllCurrentIndexes] = useState([]); // all indexes for this level
-  const [selectedIndexes, setSelectedIndexes] = useState([]); // all idexes of Cards clicked
+  const [allCards, setAllCards] = useState([]);
+  const [currentCards, setCurrentCards] = useState([]);
+  const [allCurrentIndexes, setAllCurrentIndexes] = useState([]);
+  const [selectedIndexes, setSelectedIndexes] = useState([]);
   const selectedIndexesRef = useRef(selectedIndexes);
   const [level, setLevel] = useState(1);
   const [currentScore, setCurrentScore] = useState(0);
@@ -26,7 +26,6 @@ export default function Game(props) {
       allCurrentIndexes.length === selectedIndexes.length &&
       selectedIndexes.length !== 0
     ) {
-      // increment level, clear selected indexes when round is over
       setLevel((prevState) => prevState + 1);
       setSelectedIndexes([]);
     }
@@ -36,8 +35,6 @@ export default function Game(props) {
     function cardClickHandler(event) {
       const INDEX = +event.currentTarget.getAttribute('index');
 
-      // add current index to selectedIndexes
-      // increment score
       if (!selectedIndexesRef.current.includes(INDEX)) {
         setSelectedIndexes((prevState) => {
           selectedIndexesRef.current = [...prevState, INDEX];
@@ -132,26 +129,19 @@ export default function Game(props) {
       setAllCurrentIndexes(NUMBERS);
       STATE_SETTER(NUMBERS);
     }
-    // todo render cards depending on level youre on
   }, [level, allCards, props.data]);
 
   function shuffle(array) {
     let currentIndex = array.length,
       randomIndex;
-
-    // While there remain elements to shuffle...
-    while (currentIndex != 0) {
-      // Pick a remaining element...
+    while (currentIndex !== 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-
-      // And swap it with the current element.
       [array[currentIndex], array[randomIndex]] = [
         array[randomIndex],
         array[currentIndex],
       ];
     }
-
     return array;
   }
 
