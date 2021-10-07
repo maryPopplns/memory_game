@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Card from '../card/Card.js';
 import './game.css';
 
@@ -7,19 +7,29 @@ export default function Game(props) {
   const [currentCards, setCurrentCards] = useState([]); // will be appended to the DOM
   const [allCurrentIndexes, setAllCurrentIndexes] = useState([]); // all indexes for this level
   const [selectedIndexes, setSelectedIndexes] = useState([]); // all idexes of Cards clicked
+  const selectedIndexesRef = useRef(selectedIndexes);
   const [level, setLevel] = useState(1);
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(
     window.localStorage.getItem('highScore') || 0
   );
 
-  function cardClickHandler(event) {
-    console.log(event.currentTarget.getAttribute('index'));
-    // current grabbing the indexes off of the cards, corretly mathing with allCurrentIndexes array
-    // todo push the targeted
-  }
-
   useEffect(() => {
+    function cardClickHandler(event) {
+      const INDEX = +event.currentTarget.getAttribute('index');
+
+      // console.log(!selectedIndexesRef.current.includes(INDEX));
+      if (!selectedIndexesRef.current.includes(INDEX)) {
+        setSelectedIndexes((prevState) => {
+          selectedIndexesRef.current = [...prevState, INDEX];
+          console.log(selectedIndexesRef.current);
+          return [...prevState, INDEX];
+        });
+      } else {
+        console.log('game over');
+      }
+    }
+
     props.data.forEach((data, index) => {
       const CARD = (
         <Card
@@ -105,11 +115,16 @@ export default function Game(props) {
 
   return (
     <>
-      {/* todo header */}
-      <button onClick={() => setLevel((prevState) => prevState + 1)}>
-        level up
-      </button>
+      <header id='game_header'>
+        <div className='header_text' id='current_score'>
+          score: {currentScore}
+        </div>
+        <div className='header_text' id='high_score'>
+          high score: {highScore}
+        </div>
+      </header>
       <div id='cards_container'>{currentCards}</div>
+      {/* {console.log(selectedIndexes)} */}
     </>
   );
 }

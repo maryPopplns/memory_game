@@ -10,3 +10,12 @@ main {
   grid-template-rows: repeat(10, 1fr);
   width: 55em;
 }
+
+#game_header {
+  display: flex;
+}
+
+.header_text {
+  color: white;
+  margin: 1em;
+}
