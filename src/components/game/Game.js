@@ -15,17 +15,39 @@ export default function Game(props) {
   );
 
   useEffect(() => {
+    if (currentScore > highScore) {
+      setHighScore(currentScore);
+      window.localStorage.setItem('highScore', currentScore);
+    }
+  }, [currentScore, highScore]);
+
+  useEffect(() => {
+    if (
+      allCurrentIndexes.length === selectedIndexes.length &&
+      selectedIndexes.length !== 0
+    ) {
+      // increment level, clear selected indexes when round is over
+      setLevel((prevState) => prevState + 1);
+      setSelectedIndexes([]);
+    }
+  }, [selectedIndexes, allCurrentIndexes]);
+
+  useEffect(() => {
     function cardClickHandler(event) {
       const INDEX = +event.currentTarget.getAttribute('index');
 
-      // console.log(!selectedIndexesRef.current.includes(INDEX));
+      // add current index to selectedIndexes
+      // increment score
       if (!selectedIndexesRef.current.includes(INDEX)) {
         setSelectedIndexes((prevState) => {
           selectedIndexesRef.current = [...prevState, INDEX];
-          console.log(selectedIndexesRef.current);
           return [...prevState, INDEX];
         });
+        setCurrentScore((prevState) => prevState + 1);
       } else {
+        setLevel(1);
+        setCurrentScore(0);
+        setSelectedIndexes([]);
         console.log('game over');
       }
     }
@@ -113,6 +135,26 @@ export default function Game(props) {
     // todo render cards depending on level youre on
   }, [level, allCards, props.data]);
 
+  function shuffle(array) {
+    let currentIndex = array.length,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
+
   return (
     <>
       <header id='game_header'>
@@ -123,8 +165,7 @@ export default function Game(props) {
           high score: {highScore}
         </div>
       </header>
-      <div id='cards_container'>{currentCards}</div>
-      {/* {console.log(selectedIndexes)} */}
+      <div id='cards_container'>{shuffle(currentCards)}</div>
     </>
   );
 }
