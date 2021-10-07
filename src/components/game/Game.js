@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Card from '../card/Card.js';
+import './game.css';
 
 export default function Game(props) {
   const [allCards, setAllCards] = useState([]); // set when component mounts
@@ -97,23 +98,18 @@ export default function Game(props) {
     if (level === 10) {
       const NUMBERS = NUMBER_GENERATOR(50);
       setAllCurrentIndexes(NUMBERS);
-      setCurrentCards(props.data);
+      STATE_SETTER(NUMBERS);
     }
     // todo render cards depending on level youre on
   }, [level, allCards, props.data]);
 
   return (
     <>
-      <div>hi</div>
-      {/* <button
-        onClick={() => {
-          setLevel((prevState) => prevState + 1);
-        }}
-      ></button> */}
-
-      {console.log(allCurrentIndexes)}
-      {currentCards}
-      {/* {allCurrentIndexes} */}
+      {/* todo header */}
+      <button onClick={() => setLevel((prevState) => prevState + 1)}>
+        level up
+      </button>
+      <div id='cards_container'>{currentCards}</div>
     </>
   );
 }
