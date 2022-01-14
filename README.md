@@ -2,6 +2,8 @@
   MEMORY-GAME
 </h1>
 
+[Linked](https://marypopplns.github.io/memory_game/)
+
 <h2 >
  LEARNED
 </h2>
