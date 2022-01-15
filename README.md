@@ -20,7 +20,7 @@
   - will start on http://localhost:3000/
 
 <h2 >
- PLAY
+  INSTRUCTIONS
 </h2>
 
 - For each round, a card can only be pressed once. Once a unique card had been clicked, a point is then added to your score.
